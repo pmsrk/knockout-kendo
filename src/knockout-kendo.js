@@ -1,3 +1,4 @@
+//import("../header.js");
 (function(factory) {
     // CommonJS
     if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
@@ -14,6 +15,7 @@
 //import("knockout-kendo-constants.js");
 //import("knockout-kendoAutoComplete.js");
 //import("knockout-kendoCalendar.js");
+//import("knockout-kendoColorPicker.js");
 //import("knockout-kendoComboBox.js");
 //import("knockout-kendoDatePicker.js");
 //import("knockout-kendoDateTimePicker.js");
@@ -22,12 +24,14 @@
 //import("knockout-kendoGrid.js");
 //import("knockout-kendoListView.js");
 //import("knockout-kendoMenu.js");
+//import("knockout-kendoMultiSelect.js");
 //import("knockout-kendoNumericTextBox.js");
 //import("knockout-kendoPanelBar.js");
 //import("knockout-kendoRangeSlider.js");
 //import("knockout-kendoSlider.js");
 //import("knockout-kendoSplitter.js");
 //import("knockout-kendoTabStrip.js");
+//import("knockout-kendoTooltip.js");
 //import("knockout-kendoTimePicker.js");
 //import("knockout-kendoTreeView.js");
 //import("knockout-kendoUpload.js");

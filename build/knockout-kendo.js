@@ -1,4 +1,35 @@
-//knockout-kendo v0.5.1 | (c) 2012 Ryan Niemeyer | http://www.opensource.org/licenses/mit-license
+/*
+ * knockout-kendo v0.6.1
+ * Copyright © 2013 Ryan Niemeyer & Telerik
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+/*
+ * knockout-kendo v0.6.1
+ * Copyright © 2013 Ryan Niemeyer & Telerik
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
 (function(factory) {
     // CommonJS
     if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
@@ -80,7 +111,7 @@ ko.kendo.BindingFactory = function() {
             options = ko.utils.extend({}, ko.bindingHandlers[widgetConfig.name].options),
             valueOrOptions = ko.utils.unwrapObservable(valueAccessor());
 
-        if (typeof valueOrOptions !== "object" || (defaultOption && !(defaultOption in valueOrOptions))) {
+        if (typeof valueOrOptions !== "object" || valueOrOptions === null || (defaultOption && !(defaultOption in valueOrOptions))) {
             options[defaultOption] = valueAccessor();
         }  else {
             ko.utils.extend(options, valueOrOptions);
@@ -273,15 +304,20 @@ var CLOSE = "close",
     EXPAND = "expand",
     ENABLED = "enabled",
     EXPANDED = "expanded",
+    FILTER = "filter",
+    HIDE = "hide",
     ISOPEN = "isOpen",
     MAX = "max",
     MIN = "min",
     OPEN = "open",
+    PALETTE = "palette",
     RESIZE = "resize",
     SEARCH = "search",
     SELECT = "select",
     SELECTED = "selected",
+    SHOW = "show",
     SIZE = "size",
+    TARGET = "target",
     TITLE = "title",
     VALUE = "value",
     VALUES = "values";
@@ -318,6 +354,26 @@ createBinding({
         max: MAX,
         min: MIN,
         value: VALUE
+    }
+});
+createBinding({
+    name: "kendoColorPicker",
+    events: {
+        change: VALUE,
+        open: {
+            writeTo: ISOPEN,
+            value: true
+        },
+        close: {
+            writeTo: ISOPEN,
+            value: false
+        }
+    },
+    watch: {
+        enabled: ENABLE,
+        value: VALUE,
+        color: VALUE,
+        palette: PALETTE
     }
 });
 createBinding({
@@ -456,6 +512,28 @@ createBinding({
     async: true
 });
 createBinding({
+    name: "kendoMultiSelect",
+    events: {
+        change: VALUE,
+        open: {
+            writeTo: ISOPEN,
+            value: true
+        },
+        close: {
+            writeTo: ISOPEN,
+            value: false
+        }
+    },
+    watch: {
+        enabled: ENABLE,
+        search: [SEARCH, CLOSE],
+        data: function(value) {
+            ko.kendo.setDataSource(this, value);
+        },
+        value: VALUE
+    }
+});
+createBinding({
     name: "kendoNumericTextBox",
     defaultOption: VALUE,
     events: {
@@ -568,6 +646,14 @@ createBinding({
     },
     childProp: "item",
     async: true
+});
+createBinding({
+    name: "kendoTooltip",
+    events: {},
+    watch: {
+        content: CONTENT,
+        filter: FILTER
+    }
 });
 createBinding({
     name: "kendoTimePicker",
